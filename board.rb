@@ -57,7 +57,7 @@ class Board
       new_row = []
       row.each do |card|
         if card.revealed? 
-          new_row << card.value
+          new_row << card.value.to_s
         else
           new_row << " "
         end

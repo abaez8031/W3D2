@@ -1,12 +1,13 @@
 require_relative "board"
 require_relative "card"
-require "byebug"
 
 class Game
 
     def initialize(num)
 
         @board = Board.new(num)
+
+        @lines = num
 
         @guessed_pos = []
 
@@ -21,17 +22,22 @@ class Game
 
         while !@board.won?
             @board.render
-            input = gets.chomp
-            
-            pos = input.split(" ").map { |num| num.to_i }
+           
+            pos = get_position
             @guessed_pos << @board[pos].value
+            system("clear")
 
             @board.reveal(pos)
             
-            input_2 = gets.chomp
-            pos_2 = input_2.split(" ").map { |num| num.to_i }
+
+
+            pos_2 = get_position
             @guessed_pos << @board[pos_2].value
+
+            system("clear")
             @board.reveal(pos_2)
+            sleep(5)
+
 
             if @guessed_pos[0] == @guessed_pos[1]
                 @guessed_pos = []
@@ -41,12 +47,38 @@ class Game
                 @guessed_pos = []
             end
 
-
+            system("clear")
 
         end
         
 
     end
+
+    def valid_position?(num_arr)
+        row, col = num_arr
+
+        if (row >= 0 && row <= @lines) && (col >= 0 && col <= @lines) && (!@board[row][col].revealed?)
+            return true
+        else
+            return false
+        end
+
+            
+    end
+
+    def get_position
+        input = gets.chomp
+        input_arr = input.split(" ").map { |num| num.to_i }
+
+        if valid_position?(input_arr)
+            return input_arr
+        else
+            raise ArgumentError.new("invalid position")
+        end
+
+
+    end
+        
 
 
 end
