@@ -64,8 +64,15 @@ class Board
       end
       output_grid << new_row
     end
-    output_grid.each do |row|
-      puts row.join(" ")
+    x_table = ""
+    i = 0
+    while i < @grid.length
+      x_table += " " + i.to_s
+      i += 1
+    end
+    puts x_table
+    output_grid.each_with_index do |row,idx|
+      puts idx.to_s + row.join(" ")
     end
   end
 

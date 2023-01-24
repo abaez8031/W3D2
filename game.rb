@@ -15,11 +15,12 @@ class Game
 
     def prep
         @board.populate
-
     end
 
     def play
-
+        
+        self.prep
+        
         while !@board.won?
             @board.render
            
@@ -64,18 +65,23 @@ class Game
             return false
         end
 
-            
+
     end
 
     def get_position
-        p "Please enter a position on the grid"
-        input = gets.chomp
-        input_arr = input.split(" ").map { |num| num.to_i }
+        begin
+            p "Please enter a position on the grid"
+            input = gets.chomp
+            input_arr = input.split(" ").map { |num| num.to_i }
 
-        if valid_position?(input_arr)
-            return input_arr
-        else
-            raise ArgumentError.new("invalid position")
+            if valid_position?(input_arr)
+                return input_arr
+            else
+                puts "Invalid position,try again!"
+                raise ArgumentError.new("invalid position")
+            end
+        rescue 
+            retry
         end
 
 
