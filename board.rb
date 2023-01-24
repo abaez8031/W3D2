@@ -1,11 +1,57 @@
 class Board
   
+  # def create_deck
+  #   while @deck.length <
+  # end
+
+
   def initialize(num)
-    if num % 2 == 0
+    if num % 2 == 0 && num <= 6
       @grid = Array.new(num) { Array.new(num) }
     else
-      raise ArgumentError.new("Number needs to be even")
+      raise ArgumentError.new("Number needs to be even and less than or equal to 6")
     end
+
+    alphabet = "abcdefghjiklmnopqrstuvwxyz"
+    @deck = []
+
+    i = 0
+    while @deck.length < (num ** 2)
+      2.times { @deck << alphabet[i].to_sym }
+      i += 1
+    end
+      
+
   end
+
+
+  def grid
+    @grid
+  end
+
+  def deck
+    @deck 
+  end
+
+
+
+  def populate
+    
+    (0...@grid.length).each do |i|
+      (0...@grid[i].length).each do |j|
+        chosen = @deck.sample
+        @grid[i][j] = chosen
+        @deck.delete_at(@deck.index(chosen))
+      end
+    end
+
+  end
+
+
+  
+
+
+
+
 
 end
