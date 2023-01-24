@@ -51,13 +51,14 @@ class Game
 
         end
         
-
+        @board.render
+        p "WINNER!!"
     end
 
     def valid_position?(num_arr)
         row, col = num_arr
 
-        if (row >= 0 && row <= @lines) && (col >= 0 && col <= @lines) && (!@board[row][col].revealed?)
+        if (row >= 0 && row <= @lines) && (col >= 0 && col <= @lines) && (!@board.grid[row][col].revealed?)
             return true
         else
             return false
@@ -67,6 +68,7 @@ class Game
     end
 
     def get_position
+        p "Please enter a position on the grid"
         input = gets.chomp
         input_arr = input.split(" ").map { |num| num.to_i }
 

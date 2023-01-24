@@ -64,7 +64,9 @@ class Board
       end
       output_grid << new_row
     end
-    p output_grid
+    output_grid.each do |row|
+      puts row.join(" ")
+    end
   end
 
   def won?
@@ -80,6 +82,8 @@ class Board
     row,col = pos
     @grid[row][col]
   end
+
+
 
   
   def reveal(pos)
