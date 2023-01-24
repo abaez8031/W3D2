@@ -22,6 +22,8 @@ class Board
       2.times { @deck << alphabet[i].to_sym }
       i += 1
     end
+
+  
       
 
   end
@@ -46,6 +48,7 @@ class Board
       end
     end
 
+    
   end
 
   def render
@@ -61,7 +64,7 @@ class Board
       end
       output_grid << new_row
     end
-    output_grid
+    p output_grid
   end
 
   def won?
@@ -79,8 +82,16 @@ class Board
   end
 
   
-  def reveal
+  def reveal(pos)
+
+    row,col = pos
+
+    @grid[row][col].reveal if !@grid[row][col].revealed?
+
+    self.render
+
   end
+
 
 
 
