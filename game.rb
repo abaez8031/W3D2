@@ -1,5 +1,6 @@
 require_relative "board"
 require_relative "card"
+require "byebug"
 
 class Game
 
@@ -18,7 +19,6 @@ class Game
 
     def play
 
-        
         while !@board.won?
             @board.render
             input = gets.chomp
@@ -27,9 +27,11 @@ class Game
             @guessed_pos << @board[pos].value
 
             @board.reveal(pos)
+            
             input_2 = gets.chomp
-            pos_2 = input.split(" ").map { |num| num.to_i }
+            pos_2 = input_2.split(" ").map { |num| num.to_i }
             @guessed_pos << @board[pos_2].value
+            @board.reveal(pos_2)
 
             if @guessed_pos[0] == @guessed_pos[1]
                 @guessed_pos = []
